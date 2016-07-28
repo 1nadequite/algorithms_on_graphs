@@ -16,7 +16,24 @@ struct edge {
 };
 vector<edge> e(maxn);
 
+// loop with V-1 iteration
 void bellman_ford(int s) {
+  for (int i = 0; i < n; ++i) dist[i] = inf;
+  dist[s] = 0;
+  for (int i = 0; i < n - 1; ++i) {
+    for (int j = 0; j < m; ++j) {
+      if (dist[e[j].a] != inf && dist[e[j].b] > dist[e[j].a] + e[j].cost)
+        dist[e[j].b] = dist[e[j].a] + e[j].cost;
+    }
+  }
+  for (int i = 0; i < n; ++i) {
+    cout << dist[i] << ' ';
+  }
+  cout << '\n';
+}
+
+//improved implementation
+void bellman_ford_improved(int s) {
   for (int i = 0; i < n; ++i) dist[i] = inf;
   dist[s] = 0;
   for (;;) {
