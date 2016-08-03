@@ -7,7 +7,8 @@
 #include <queue>
 
 using namespace std;
-const int maxn = 100005;
+const int maxn = 1005;
+const int maxm = 10005;
 const int inf = 1000000007;
 int n, m;
 vector<int> dist(maxn), visited(maxn);
@@ -16,7 +17,7 @@ struct edge {
   int b;
   int cost;
 };
-vector<edge> e(maxn);
+vector<edge> e(maxm);
 
 void exch_money(int s) {
   for (int i = 0; i < n; ++i) {
@@ -24,17 +25,21 @@ void exch_money(int s) {
     visited[i] = false;
   }
   dist[s] = 0;
-  set<int> ss;
-  for (int i = 0; i < n; ++i) {
-    ss.clear();
+  //set<int> ss;
+  for (int i = 0; i < n - 1; ++i) {
+    //ss.clear();
     for (int j = 0; j < m; ++j) {
       if (dist[e[j].a] != inf && dist[e[j].b] > dist[e[j].a] + e[j].cost) {
         dist[e[j].b] = max( -inf, dist[e[j].a] + e[j].cost );
-        ss.insert(e[j].a);
+        //ss.insert(e[j].a);
       }
     }
   }
-  queue<int> q;
+  for (int i = 0; i < m; ++i) {
+    if (dist[e[i].b] > dist[e[i].a] + e[i].cost)
+      cout << e[i].b << ' ' << e[i].a << endl;
+  }
+  /*queue<int> q;
   for (auto x: ss) q.push(x);
   while (!q.empty()) {
     int x = q.front();
@@ -52,7 +57,7 @@ void exch_money(int s) {
       if (visited[i] == true) cout << '-' << endl;
       else cout << dist[i] << endl;
     }
-  }
+  }*/
 }
 
 int main() {
