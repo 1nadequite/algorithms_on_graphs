@@ -25,21 +25,17 @@ void exch_money(int s) {
     visited[i] = false;
   }
   dist[s] = 0;
-  //set<int> ss;
+  set<int> ss;
   for (int i = 0; i < n - 1; ++i) {
-    //ss.clear();
+    ss.clear();
     for (int j = 0; j < m; ++j) {
       if (dist[e[j].a] != inf && dist[e[j].b] > dist[e[j].a] + e[j].cost) {
         dist[e[j].b] = max( -inf, dist[e[j].a] + e[j].cost );
-        //ss.insert(e[j].a);
+        ss.insert(e[j].a);
       }
     }
   }
-  for (int i = 0; i < m; ++i) {
-    if (dist[e[i].b] > dist[e[i].a] + e[i].cost)
-      cout << e[i].b << ' ' << e[i].a << endl;
-  }
-  /*queue<int> q;
+  queue<int> q;
   for (auto x: ss) q.push(x);
   while (!q.empty()) {
     int x = q.front();
@@ -57,7 +53,7 @@ void exch_money(int s) {
       if (visited[i] == true) cout << '-' << endl;
       else cout << dist[i] << endl;
     }
-  }*/
+  }
 }
 
 int main() {
